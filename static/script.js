@@ -3,32 +3,19 @@ $(document).ready(function() {
     const controls = $('#interactive-controls');
     const toggleButton = $('#toggleControls');
     const transcriptSnippet = $('#transcript-snippet');
-    
-    // Store chapter data
-    const chapterData = {};
-    $('.chapter-btn').each(function() {
-        const timestamp = $(this).data('timestamp');
-        chapterData[timestamp] = $(this).data('snippet');
-    });
-
-    // Format timestamp to minutes:seconds
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
 
     // 1. Jump to chapter on button click
     $('.chapter-btn, .chapter-list-item').on('click', function(e) {
         e.preventDefault();
         const timestamp = $(this).data('timestamp');
+        const snippet = $(this).data('snippet');
+        const label = $(this).data('label');
+        
         video.currentTime = timestamp;
         video.play();
         
         // Update the transcript snippet
-        const snippetText = chapterData[timestamp] || "Exploring this chapter...";
-        const label = $(this).find('h6').text() || $(this).text();
-        transcriptSnippet.html(`<strong>${label}:</strong> ${snippetText}`);
+        transcriptSnippet.html(`<strong>${label}:</strong> ${snippet}`);
     });
 
     // 2. Auto-hide controls when video is playing, show when paused
@@ -60,20 +47,18 @@ $(document).ready(function() {
                 $(this).addClass('active');
                 
                 // Update the transcript snippet
-                const snippetText = chapterData[chapterTime];
-                const label = $(this).find('h6').text() || $(this).text();
-                if (snippetText) {
-                    transcriptSnippet.html(`<strong>${label}:</strong> ${snippetText}`);
-                }
+                const snippet = $(this).data('snippet');
+                const label = $(this).data('label');
+                transcriptSnippet.html(`<strong>${label}:</strong> ${snippet}`);
             }
         });
     });
     
     // 5. Initialize with the first chapter's snippet if available
-    if (Object.keys(chapterData).length > 0) {
-        const firstTimestamp = Object.keys(chapterData)[0];
-        const firstButton = $(`.chapter-btn[data-timestamp="${firstTimestamp}"]`);
-        const label = firstButton.text();
-        transcriptSnippet.html(`<strong>${label}:</strong> ${chapterData[firstTimestamp]}`);
+    const firstChapter = $('.chapter-btn').first();
+    if (firstChapter.length) {
+        const snippet = firstChapter.data('snippet');
+        const label = firstChapter.data('label');
+        transcriptSnippet.html(`<strong>${label}:</strong> ${snippet}`);
     }
 });

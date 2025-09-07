@@ -22,7 +22,7 @@
                 <div class="video-container position-relative rounded-4 overflow-hidden shadow-lg">
                     
                     <!-- The Video Player -->
-                    <video id="mainVideo" class="w-100" controls poster="https://placehold.co/800x450/2c5364/white?text=Gwalior+Travel+Vlog">
+                    <video id="mainVideo" class="w-100" controls controlsList="nodownload">
                         <source src="{{ url_for('static', filename='my_video.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -34,7 +34,8 @@
                             {% for chapter in chapters %}
                             <button class="chapter-btn btn btn-primary px-3 py-2" 
                                     data-timestamp="{{ chapter.timestamp }}"
-                                    data-snippet="{{ chapter.snippet }}">
+                                    data-snippet="{{ chapter.snippet }}"
+                                    data-label="{{ chapter.label }}">
                                 {{ chapter.label }}
                             </button>
                             {% endfor %}
@@ -62,11 +63,13 @@
                     <div class="list-group">
                         {% for chapter in chapters %}
                         <a href="#" class="list-group-item list-group-item-action chapter-list-item" 
-                           data-timestamp="{{ chapter.timestamp }}" data-snippet="{{ chapter.snippet }}">
+                           data-timestamp="{{ chapter.timestamp }}" 
+                           data-snippet="{{ chapter.snippet }}"
+                           data-label="{{ chapter.label }}">
                             <div class="d-flex w-100 justify-content-between">
-    <h6 class="mb-1">{{ chapter.label }}</h6>
-    <small class="text-muted">{{ chapter.formatted_time }}</small>
-</div>
+                                <h6 class="mb-1">{{ chapter.label }}</h6>
+                                <small class="text-muted">{{ chapter.formatted_time }}</small>
+                            </div>
                             <p class="mb-1">{{ chapter.snippet }}</p>
                         </a>
                         {% endfor %}
