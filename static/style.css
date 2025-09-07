@@ -1,0 +1,122 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.video-container {
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.controls-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    -webkit-backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.control-title {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.chapter-btn {
+    transition: all 0.3s ease !important;
+    border: none !important;
+    font-weight: 600;
+    margin: 5px;
+    border-radius: 50px !important;
+    background: linear-gradient(45deg, #6a11cb, #2575fc) !important;
+}
+
+.chapter-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(98, 0, 234, 0.4);
+}
+
+#toggleControls {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    z-index: 10;
+}
+
+.transcript-container {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.snippet-title {
+    color: #6a11cb;
+    font-weight: 600;
+}
+
+.snippet-text {
+    color: #fff;
+    line-height: 1.6;
+}
+
+.chapters-list {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chapter-list-item {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    margin-bottom: 10px;
+    border-radius: 8px !important;
+    transition: all 0.3s ease;
+}
+
+.chapter-list-item:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .video-container {
+        border-radius: 8px;
+    }
+    
+    .chapter-btn {
+        padding: 8px 16px !important;
+        font-size: 14px;
+    }
+    
+    .controls-container {
+        padding: 15px;
+    }
+    
+    h1.display-5 {
+        font-size: 2rem;
+    }
+}

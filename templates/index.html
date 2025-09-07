@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Travel Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                
+                <header class="text-center mb-4">
+                    <h1 class="display-5 fw-bold">Explore Gwalior: Your Journey, Your Choice</h1>
+                    <p class="lead">Click on any chapter to jump directly to that part of the video</p>
+                </header>
+                
+                <!-- Video Player Container -->
+                <div class="video-container position-relative rounded-4 overflow-hidden shadow-lg">
+                    
+                    <!-- The Video Player -->
+                    <video id="mainVideo" class="w-100" controls poster="https://placehold.co/800x450/2c5364/white?text=Gwalior+Travel+Vlog">
+                        <source src="{{ url_for('static', filename='my_video.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <!-- Interactive Buttons Container -->
+                    <div id="interactive-controls" class="controls-container p-4 text-center">
+                        <p class="control-title mb-3">What would you like to explore first?</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            {% for chapter in chapters %}
+                            <button class="chapter-btn btn btn-primary px-3 py-2" 
+                                    data-timestamp="{{ chapter.timestamp }}"
+                                    data-snippet="{{ chapter.snippet }}">
+                                {{ chapter.label }}
+                            </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Menu toggle button -->
+                    <button id="toggleControls" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3">
+                        ☰ Menu
+                    </button>
+
+                </div>
+
+                <!-- Transcript Snippet Display -->
+                <div class="transcript-container mt-4 p-4 rounded-3">
+                    <h5 class="snippet-title mb-3">Currently Exploring:</h5>
+                    <p id="transcript-snippet" class="snippet-text mb-0">
+                        Select a chapter above to see details about that part of the journey...
+                    </p>
+                </div>
+
+                <!-- Video Chapters List -->
+                <div class="chapters-list mt-4 p-4 rounded-3">
+                    <h5 class="mb-3">Video Chapters</h5>
+                    <div class="list-group">
+                        {% for chapter in chapters %}
+                        <a href="#" class="list-group-item list-group-item-action chapter-list-item" 
+                           data-timestamp="{{ chapter.timestamp }}" data-snippet="{{ chapter.snippet }}">
+                            <div class="d-flex w-100 justify-content-between">
+    <h6 class="mb-1">{{ chapter.label }}</h6>
+    <small class="text-muted">{{ chapter.formatted_time }}</small>
+</div>
+                            <p class="mb-1">{{ chapter.snippet }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
